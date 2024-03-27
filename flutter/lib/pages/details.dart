@@ -4,7 +4,7 @@ import 'package:ghc_adoption/data/movie.dart';
 class Details extends StatefulWidget {
   final Movie movie;
 
-  Details({required this.movie});
+  const Details({super.key, required this.movie});
 
   @override
   _DetailsState createState() => _DetailsState();

@@ -8,21 +8,13 @@
             "name": "flutter",
             "cwd": "flutter",
             "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "flutter (profile mode)",
-            "cwd": "flutter",
-            "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "flutter (release mode)",
-            "cwd": "flutter",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
+            "args": [
+                "--web-port",
+                "3000",
+                "--web-hostname",	
+                "0.0.0.0"
+            ]
         }
     ]
 }

@@ -13,17 +13,58 @@ class Details extends StatefulWidget {
 class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
+    if (widget.movie == null) {
+      Navigator.of(context).pushReplacementNamed('/');
+      return Container(); // Retourne un widget vide pendant que la navigation se fait
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.movie.title),
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Director: ${widget.movie.director}'),
-            Text('Year: ${widget.movie.year.toString()}'),
-            Text('Genres: ${widget.movie.genres.join(', ')}'),
-            Image.network(widget.movie.imageUrl),
+            Text(
+              'Director: ${widget.movie.director}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'RobotoMono',
+              ),
+            ),
+            Text(
+              'Year: ${widget.movie.year.toString()}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'RobotoMono',
+              ),
+            ),
+            Text(
+              'Genres: ${widget.movie.genres.join(', ')}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'RobotoMono',
+              ),
+            ),
+            const SizedBox(height: 60),
+            Hero(
+              tag: 'movie-${widget.movie.title}',
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: SizedBox(
+                  height: 300,
+                  width: 200,
+                  child: Image.network(
+                    widget.movie.imageUrl,
+                    filterQuality: FilterQuality.high,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

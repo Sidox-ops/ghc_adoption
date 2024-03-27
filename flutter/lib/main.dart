@@ -15,8 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.white)
+              .copyWith(background: const Color.fromARGB(255, 100, 94, 94)),
         ),
         home: const MyHomePage(title: 'GHC: Flutter Movie List'),
         routes: {

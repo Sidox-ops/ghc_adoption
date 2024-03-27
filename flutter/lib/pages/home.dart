@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ghc_adoption/data/movie.dart';
 import 'package:ghc_adoption/data/movies_provider.dart';
+import 'package:ghc_adoption/widget/trending_slider.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -12,51 +14,84 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  MoviesProvider moviesProvider = MoviesProvider();
-
-  Future<List<Movie>> getMovies() async {
-    var movies = await moviesProvider.loadMovies();
-    print('Loading movies $movies');
-    return movies;
-  }
+  late Future<List<Movie>> _moviesFuture;
+  final moviesProvider = MoviesProvider();
+  final _filterController = TextEditingController();
+  String _filter = '';
 
   @override
   void initState() {
     super.initState();
-    _moviesFuture = getMovies(); // Initialisez le Future ici
+    _moviesFuture = moviesProvider.loadMovies();
+    _filterController.addListener(_onFilterChanged);
   }
 
-  late Future<List<Movie>> _moviesFuture; // Déclaration du Future
+  @override
+  void dispose() {
+    _filterController.dispose();
+    super.dispose();
+  }
+
+  void _onFilterChanged() {
+    setState(() {
+      _filter = _filterController.text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(widget.title),
+        backgroundColor: Colors.black,
+        title: Text(widget.title, style: const TextStyle(color: Colors.white)),
       ),
       body: Center(
-          child: FutureBuilder<List<Movie>>(
-              future: _moviesFuture,
-              builder: (context, snapshot) => snapshot.hasData
-                  ? ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        Movie movie = snapshot.data![index];
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ListTile(
-                              title: Text(movie.title,
-                                  style: const TextStyle(fontSize: 20.0)),
-                              subtitle: Text(movie.director,
-                                  style: const TextStyle(fontSize: 18.0)),
-                              leading: Image.network(movie.imageUrl),
-                              onTap: () => Navigator.pushNamed(
-                                  context, '/details',
-                                  arguments: movie)),
-                        );
-                      },
-                    )
-                  : const CircularProgressIndicator())),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FutureBuilder<List<Movie>>(
+                future: _moviesFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Erreur: ${snapshot.error}');
+                  } else {
+                    final movies = snapshot.data!.where((movie) {
+                      return movie.title
+                          .toLowerCase()
+                          .contains(_filter.toLowerCase());
+                    }).toList();
+                    if (movies.isEmpty) {
+                      return const Text(
+                          'Aucun film ne correspond à votre recherche.');
+                    } else {
+                      return TrendingSlider(movies: movies);
+                    }
+                  }
+                },
+              ),
+            ),
+            const SizedBox(height: 64),
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: TextField(
+                controller: _filterController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  labelText: 'Filtrer par titre',
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

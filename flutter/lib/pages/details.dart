@@ -13,10 +13,6 @@ class Details extends StatefulWidget {
 class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
-    if (widget.movie == null) {
-      Navigator.of(context).pushReplacementNamed('/');
-      return Container(); // Retourne un widget vide pendant que la navigation se fait
-    }
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.movie.title),

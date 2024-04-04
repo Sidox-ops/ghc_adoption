@@ -15,6 +15,5 @@
 				"github.copilot"
 			]
 		}
-	},
-	"postAttachCommand": "/bin/bash run.sh"
+	}
 }

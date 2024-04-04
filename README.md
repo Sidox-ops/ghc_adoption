@@ -4,6 +4,8 @@
 
 In this part, you will create an app containing a movie catalog using Flutter. For that, you have a template app in Android, iOS, and web.
 
+__For this part you are asked to use `flutter\lib\data\movies.json` as the moovie app data base.__
+
 Target to reach
 
 ![alt text](Target_Part1.gif)
@@ -11,12 +13,10 @@ Target to reach
 Follow these steps to complete this part of the challenge:
 
 1. Look up the Android, iOS, and WebApp for some inspiration.
-2. Create a new Flutter project using the Flutter CLI.
-3. Copy the necessary code and assets from the templates app to the Flutter project.
-4. Update the dependencies and configurations in the Flutter project to match the Android app.
-5. Test the Flutter app and ensure it runs correctly.
+2. Translate the necessary code and assets from the templates app to the Flutter project.
+3. Test the Flutter app and ensure it runs correctly.
 
-_Hints: If you are facing some difficulties, look up in `Hints.md`_
+_Hints: If you are facing some difficulties, look up in `README_with_prompts.md`_
 
 _Note: If after 40 minutes Part 1 is not completed, you are asked to commit your changes and checkout the branch `XXX` to proceed with Part 2._
 
@@ -35,7 +35,7 @@ Target to reach
 
 ![alt text](Target_Part2_Option_1.gif)
 
-_Hints: If you are facing some difficulties, look up in `Hints.md`_
+_Hints: If you are facing some difficulties, look up in `README_with_prompts.md`_
 
 ### Option 2: Connecting to an Open API
 
@@ -49,7 +49,7 @@ Target to reach
 
 ![alt text](Target_Part2_Option_2.gif)
 
-_Hints: If you are facing some difficulties, look up in `Hints.md`_
+_Hints: If you are facing some difficulties, look up in `README_with_prompts.md`_
 
 Choose either option based on your preference and skillset. Feel free to combine both options if you want to challenge yourself further.
 

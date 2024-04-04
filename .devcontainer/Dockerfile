@@ -10,7 +10,3 @@ RUN apt-get clean
 RUN git clone https://github.com/flutter/flutter.git -b stable --depth 1 /flutter
 ENV PATH="/flutter/bin:$PATH"
 RUN flutter doctor
-
-# WORKDIR /flutter
-# RUN flutter clean
-# RUN flutter pub get
